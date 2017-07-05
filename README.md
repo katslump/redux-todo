@@ -418,7 +418,7 @@ export default TodoApp;
 
 - Add a new action creator
 - Add a case in reducer to create a new state from the current state
-- Supply a handler to the correct component via mapDispatchToProps. The handler should dispatch the appropiate action
+- Supply a handler to the correct component via mapDispatchToProps. The handler should dispatch the appropiate action. (Make sure you're passing in the props correctly to each component!) 
 - Check that the functionality is back
 
 ## Step 8 Removing Todos
