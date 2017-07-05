@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 class InputLine extends React.Component {
   constructor(props) {
@@ -31,4 +31,4 @@ class InputLine extends React.Component {
   }
 }
 
-module.exports = InputLine;
+export default InputLine;
