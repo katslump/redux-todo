@@ -45,8 +45,54 @@
  ```
  Reminder: `{ something }` in ES2015 is just shorthand for `{ something : something }`.
  
- So far we have not needed anything from the Redux npm package since we are just writing functions that return objects. Redux will intrepret these functions as actions but that doesnt mean that they are anything more than functions. Now that we have our action creator for `ADD_TODO` we are ready to begin writing the reducer logic for that action. 
+ So far we have not needed anything from the Redux npm package since we are just writing functions that return objects. Redux will intrepret these functions as actions but that doesnt mean that they are anything more than functions. Now that we have our action creator for `ADD_TODO` we are ready to begin writing the reducer logic for that specific action or action creator. 
  
- Side note: In the case of action creators they also allow other parts of redux (see [redux middleware](http://redux.js.org/docs/advanced/Middleware.html)) to be less complex
+ Side note: It is normal to conflate actions and action creators since the latter are merely a means of creating very specific actions. So in later portions of the exercise I will use the terms interchangably.
+ Technical note: In the case of action creators they also allow other parts of redux (see [redux middleware](http://redux.js.org/docs/advanced/Middleware.html)) to be less complex
  
- 
+ ## Step 3 writing the reducer
+
+ The next step after writing an action creator for a given action is always to write the part of the reducer logic that handles that kind of action. Since this is the first action we are writing we also have to setup the basic reducer structure as well. Recall that a reducer only needs to worry about how to take the current state and a given action object and then return the next or new state. So lets start with the skeleton below.
+
+ ```javascript
+ // Inside app/reducers/index.js
+const reducer = (state, action) => {
+    switch (action.type) {
+        // Missing cases
+        default:
+            return state;
+    }
+};
+
+export reducer;
+ ```
+Since the redux `store` actually runs the root reducer to figure out the starting state we need to decide what the default state of our app should be. In this case our application state really only depends on which todos are in the todo list and todos are fairly easy to store in an array. So go ahead and update the `reducer` above so that the default state is an empty array by using the ES2015 default parameters feature. Now that the basic skeleton for the root reducer is out of the way we can get back to implementing the reducer logic for the `'ADD_TODO'` action type case.
+
+What should the reducer do in the case of an `'ADD_TODO'` action? Since it automatically gets passed the current state and the action object all we need to do is create and return a new state. The new state should have one more todo and since the action object contains all the pieces we need to create the todo we simply create the todo from the action object and add it to the todos in the current state.
+
+ ```javascript
+ // Inside app/reducers/index.js
+const reducer = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_TODO':
+            // copy new state so no mutations to old state
+            const newState = [ ...state ];
+            // create the todo from the action object
+            const newTodo = {
+                id: action.id,
+                text: action.text,
+                completed: action.completed
+            };
+            // okay to mutate our own copy
+            newState.push(newTodo);
+            return newState
+        default:
+            return state;
+    }
+};
+
+export reducer;
+ ```
+Now our reducer is ready to handle `dispatch(addTodo(id, text))` calls made by the UI! The only problem is that we haven't setup the store
+
+Side note: Its normal to start with a given idea for what your application state looks like and then later discover you need to add/change the shape of the state to accomodate more features. This is a fairly easy process so we don't need to think for hours to capture every little possible piece of state before we begin to code. This is one of the super powers of the Redux approach. 
