@@ -18,18 +18,35 @@
 
  Action creators seem strange at first. Why do I want a function that returns the action instead of just creating the action directly? It turns out to be quite useful in many programming situations to make everything into functions. See the note below if you are interested. Today we will just be using action creators as a convenient starting point to implementing any feature in redux.
  
- Lets get our feet wet by opening the `index.js` file inside the actions folder and adding an action creator for the `ADD_TODO` action that will be responsible for adding a new todo. Since an action object must contain everything needed by the reducer to take the current state to the next state we must remember to include the text of the new todo, the id of the new todo, and the completed status of the new todo. Thats everything right? Oops! We must always have a type field in every action. The type is just a string that makes it easy for use to identify the purpose of the action. In this case `'ADD_TODO'` seems like a clear enough type string. 
+ Lets get our feet wet by opening the `index.js` file inside the actions folder and adding an action creator for the `ADD_TODO` action that will be responsible for new todos. Since an action object must contain everything needed by the reducer to take the current state to the next state we must remember to include the text of the new todo, the id of the new todo, and the completed status of the new todo. Thats everything right? Oops! We must always have a type field in every action. The type is just a string that makes it easy for use to identify the purpose of the action. In this case `'ADD_TODO'` seems like a clear enough type string. The todos will look the `typicalTodo` object (see below) so our action creator for `'ADD_TODO'` needs only to be given the `text` and `id` values to form and return this kind of action object. Now add the `addTodo()` action creator defined below to the `index.js` file in the actions folder. 
  
  ```javascript
   // typical action shape for ADD_TODO
-  {
+  const typicalTodo = {
+    type: 'ADD_TODO'
     id: 5,
     text: 'Build A Todo App',
     completed: false
   }
+  addTodo(5,'Build A Todo App') // returns the todo above
  ```
   
   
+ ```javascript
+ // Inside /app/actions/index.js
+ export function addTodo(id,text) {
+  return {
+   type: 'ADD_TODO',
+   id,
+   text,
+   completed: false
+  };
+ }
  ```
+ Reminder: `{ something }` in ES2015 is just shorthand for `{ something : something }`.
+ 
+ So far we have not needed anything from the Redux npm package since we are just writing functions that return objects. Redux will intrepret these functions as actions but that doesnt mean that they are anything more than functions. Now that we have our action creator for `ADD_TODO` we are ready to begin writing the reducer logic for that action. 
  
  Side note: In the case of action creators they also allow other parts of redux (see [redux middleware](http://redux.js.org/docs/advanced/Middleware.html)) to be less complex
+ 
+ 
