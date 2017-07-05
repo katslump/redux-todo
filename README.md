@@ -189,7 +189,7 @@ const TodoList =({ todos, handleToggleTodo }) => {
             task={todo.task}
             completed={todo.completed}
             // Now we will use matching by id's instead of index
-            toggleTodo={() => handleToggleTodo(todo.id)}
+            handleOnClick={() => handleToggleTodo(todo.id)}
           />
         ))
       }
@@ -253,7 +253,7 @@ class TodoApp extends React.Component {
         {/*this.state.todos will not exist so we need to fix this*/}
         <TodoList
           todos={this.state.todos}
-          toggleTodo={(id) => this.toggleTodo(id)}
+          handleToggleTodo={(id) => this.toggleTodo(id)}
         />
       </div>
     );
@@ -284,7 +284,7 @@ class TodoApp extends React.Component {
         {/*this.state.todos will not exist so we need to fix this*/}
         <TodoList
           todos={this.state.todos}
-          toggleTodo={(id) => this.toggleTodo(id)}
+          handleToggleTodo={(id) => this.toggleTodo(id)}
         />
       </div>
     );
@@ -311,7 +311,7 @@ const TodoApp =({ todos, addTodoClick, toggleTodoClick }) => {
         />
         <TodoList
             todos={todos}
-            toggleTodo={(id) => toggleTodoClick(id)}
+            handleToggleTodo={(id) => toggleTodoClick(id)}
         />
         </div>
     );
