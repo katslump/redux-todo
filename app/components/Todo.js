@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 class Todo extends React.Component {
   render() {
@@ -12,4 +12,4 @@ class Todo extends React.Component {
   }
 }
 
-module.exports = Todo;
+export default Todo;

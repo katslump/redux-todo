@@ -1,5 +1,5 @@
-var React = require('react');
-var Todo = require('./Todo');
+import React from 'react';
+import Todo from './Todo';
 
 class TodoList extends React.Component {
   render() {
@@ -20,4 +20,4 @@ class TodoList extends React.Component {
   }
 }
 
-module.exports = TodoList;
+export default TodoList;

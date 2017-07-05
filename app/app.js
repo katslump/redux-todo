@@ -1,5 +1,5 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TodoApp = require('./components/TodoApp');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TodoApp from './components/TodoApp';
 
 ReactDOM.render(<TodoApp />, document.getElementById('root'));

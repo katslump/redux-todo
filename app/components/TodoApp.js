@@ -1,6 +1,6 @@
-var React = require('react');
-var InputLine = require('./InputLine');
-var TodoList = require('./TodoList');
+import React from 'react';
+import InputLine from './InputLine';
+import TodoList from './TodoList';
 
 
 let id = 0;
@@ -52,4 +52,4 @@ class TodoApp extends React.Component {
   }
 }
 
-module.exports = TodoApp;
+export default TodoApp;
