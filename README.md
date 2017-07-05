@@ -16,7 +16,7 @@
  
 ## Step 2 Action Creators
 
- Action creators seem strange at first. Why do I want a function that returns the action instead of just creating the action directly? It turns out to be quite useful in many programming situations to make everything into functions. See the note below if you are interested. Today we will just be using action creators as a convenient starting point to implementing any feature in redux.
+ Action creators seem strange at first. Why do I want a function that returns the action instead of just creating the action directly? It turns out to be quite useful in many programming situations to make everything into functions. See technical note 1. Today we will be focussed on using action creators as the convenient starting point to implement a feature in redux.
  
  Lets get our feet wet by opening the `index.js` file inside the actions folder and adding an action creator for the `ADD_TODO` action that will be responsible for new todos. Since an action object must contain everything needed by the reducer to take the current state to the next state we must remember to include the text of the new todo, the id of the new todo, and the completed status of the new todo. Thats everything right? Oops! We must always have a type field in every action. The type is just a string that makes it easy for use to identify the purpose of the action. In this case `'ADD_TODO'` seems like a clear enough type string. The todos will look the `typicalTodo` object (see below) so our action creator for `'ADD_TODO'` needs only to be given the `text` and `id` values to form and return this kind of action object. Now add the `addTodo()` action creator defined below to the `index.js` file in the actions folder. 
  
@@ -47,12 +47,12 @@
  
  So far we have not needed anything from the Redux npm package since we are just writing functions that return objects. Redux will intrepret these functions as actions but that doesnt mean that they are anything more than functions. Now that we have our action creator for `ADD_TODO` we are ready to begin writing the reducer logic for that specific action or action creator. 
  
- Side note: It is normal to conflate actions and action creators since the latter are merely a means of creating very specific actions. So in later portions of the exercise I will use the terms interchangably.
- Technical note: In the case of action creators they also allow other parts of redux (see [redux middleware](http://redux.js.org/docs/advanced/Middleware.html)) to be less complex
+ - Side note: It is normal to conflate actions and action creators since the latter are merely a means of creating very specific actions. So in later portions of the exercise I will use the terms interchangably.
+ - Technical note 1: In the case of action creators they also allow other parts of redux (see [redux middleware](http://redux.js.org/docs/advanced/Middleware.html)) to be less complex
  
  ## Step 3 writing the reducer
 
- The next step after writing an action creator for a given action is always to write the part of the reducer logic that handles that kind of action. Since this is the first action we are writing we also have to setup the basic reducer structure as well. Recall that a reducer only needs to worry about how to take the current state and a given action object and then return the next or new state. So lets start with the skeleton below.
+ The next step after writing an action creator for a given action is to write the part of the reducer logic that handles that kind of action. Since this is the first action we are writing we also have to setup the basic reducer structure as well. Recall that a reducer only needs to worry about how to take the current state and a given action object and then return the next or new state. So lets start with the skeleton below.
 
  ```javascript
  // Inside app/reducers/index.js
@@ -93,6 +93,76 @@ const reducer = (state = [], action) => {
 
 export reducer;
  ```
-Now our reducer is ready to handle `dispatch(addTodo(id, text))` calls made by the UI! The only problem is that we haven't setup the store
+Now our reducer is ready to handle `dispatch(addTodo(id, text))` calls made by the UI! The only problem is that we still have react managing all our state in our components right now. Lets fix this.
 
 Side note: Its normal to start with a given idea for what your application state looks like and then later discover you need to add/change the shape of the state to accomodate more features. This is a fairly easy process so we don't need to think for hours to capture every little possible piece of state before we begin to code. This is one of the super powers of the Redux approach. 
+
+## Step 4 Take state control of todos out of React's hands
+
+We have four components in our application `InputLine.js`, `Todo.js`, `TodoApp.js`, and `TodoList.js`. Lets vastly simply the latter three components by moving all the state and logic out of as many components as possible. We can start top down with `TodoApp.js` or bottom up `Todo.js` both are valid approaches once you get the hang of redux-ification. For this app its slightly easier to go bottom up so lets take a look at `Todo.js` first.
+
+```javascript
+var React = require('react');
+
+class Todo extends React.Component {
+  render() {
+    return (
+      <li>
+        <span onClick={() => this.props.toggleTodo()}>
+          {this.props.completed ? <strike> {this.props.task}</strike> : this.props.task}
+        </span>
+      </li>
+    );
+  }
+}
+
+module.exports = Todo;
+```
+
+This component only has a render method so it is actually just a presentational component lets make it official by using a function to represent it.
+
+```javascript
+var React = require('react');
+
+const Todo = ({task, completed, handleOnClick}) =>
+    return (
+      <li>
+        <span onClick={handleOnClick}>
+          {completed ? <strike> {task} </strike> : task}
+        </span>
+      </li>
+    );
+  }
+}
+
+module.exports = Todo;
+```
+Much better! Now this component is more reusable in our future projects. We don't do any logic inside the component instead `<Todo />` relies on being passed everything it needs. Next up we go to the component using `<Todo />` which is/in `TodoList.js`.
+
+```javascript
+var React = require('react');
+var Todo = require('./Todo');
+
+class TodoList extends React.Component {
+  render() {
+    return (
+      <ul>
+        {
+          this.props.todos.map((todo, index) => (
+            <Todo
+              key={todo.id}
+              task={todo.task}
+              completed={todo.completed}
+              toggleTodo={() => this.props.toggleTodo(index)}
+            >
+            </Todo>
+          ))
+        }
+      </ul>
+    )
+  }
+}
+
+module.exports = TodoList;
+```
+In this component we again have just a render method
