@@ -5,4 +5,6 @@
 ## Step 0
     Clone this repo and get the app to run as is. Notice that the `package.json` has a `npm start` script that runs the `webpack-dev-server`. Don't forget to `npm install`!
 
+    !()[https://cl.ly/3b3V1e2l3629]
+
 ## Step 1
