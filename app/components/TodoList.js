@@ -12,7 +12,6 @@ class TodoList extends React.Component {
               task={todo.task}
               completed={todo.completed}
               toggleTodo={() => this.props.toggleTodo(index)}
-              removeTodo={() => this.props.removeTodo(index)}
             />
           ))
         }
