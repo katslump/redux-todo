@@ -9,7 +9,7 @@ let id = 0;
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { todos: [] };
+    this.state = { todos: [] }; 
   }
 
   toggleTodo(index) {
