@@ -1,6 +1,7 @@
 import React from 'react';
+
 import InputLine from './InputLine';
-import TodoList from './TodoList';
+import TodoList from '../containers/TodoList';
 
 
 let id = 0;
@@ -17,19 +18,19 @@ class TodoApp extends React.Component {
       this.state.todos[index],
       { completed: !this.state.todos[index].completed }
     );
-    const newTodos = [ 
+    const newTodos = [
       ...this.state.todos.slice(0, index),
       newTodo,
-      ...this.state.todos.slice(index + 1)  
+      ...this.state.todos.slice(index + 1)
     ];
     this.setState({ todos: newTodos });
   }
 
   addTodo(task) {
-    const newTodo = { 
+    const newTodo = {
       id: id++,
       task: task,
-      completed: false 
+      completed: false
     };
     const newTodos = [ ...this.state.todos ]
     newTodos.push(newTodo);
