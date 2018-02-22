@@ -15,7 +15,7 @@ let TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
   function renderList() {
     return todos.map((todo) => (<Todo task={todo.task} completed={todo.completed} id={todo.id}
       // Now we will use matching by id's instead of index
-      handleOnClick={() => handleToggleTodo(todo.id)} handleRemoveClick={() => handleRemoveTodo(todo.id)}/>));
+      handleOnClick={() => handleToggleTodo(todo.id)} handleRemoveClick={() => handleRemoveTodo(todo.id, todo.task)}/>));
   };
 
   return (<ul className="list-group center">

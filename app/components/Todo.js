@@ -1,26 +1,38 @@
 import React from 'react';
-import {getStatus} from '../actions/index';
+import axios from 'axios';
 
+import {getStatus} from '../actions/index';
+const dbUrl = "http://localhost:3000/db";
 
 const Todo = ({task, id, completed, handleOnClick, handleRemoveClick}) => {
-  return (<li className="list-group-item" key={id} style={completed
-      ? {
-        'textDecoration': 'line-through'
-      }
-      : {
-        color: 'black'
-      }}>
-    <div className="row">
-      <div className="col-xs-10 col-md-8" onClick={handleOnClick}>
-        {task}
-      </div>
-      <div className="col-xs-2 col-md-4">
-        <button type="button" className="close" onClick={handleRemoveClick}>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
-  </li>);
-}
+      let handleDeleteClick = (e) => {
+        axios.post(dbUrl + '/remove', {
+          id: id
+        }).then(function(response) {
+          handleRemoveClick();
+        }).catch(function(error) {
+          console.log(error);
+        });
+      };
 
-export default Todo;
+      return (<li className="list-group-item" key={id} style={completed
+          ? {
+            'textDecoration': 'line-through'
+          }
+          : {
+            color: 'black'
+          }}>
+        <div className="row">
+          <div className="col-xs-10 col-md-8" onClick={handleOnClick}>
+            {task}
+          </div>
+          <div className="col-xs-2 col-md-4">
+            <button type="button" className="close" onClick={handleDeleteClick}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </li>);
+  }
+
+    export default Todo;
