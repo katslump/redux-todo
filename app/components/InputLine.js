@@ -1,7 +1,7 @@
 import React from 'react';
 import {addTodo} from '../actions/index';
 import axios from 'axios';
-const dbUrl = "http://localhost:3000/db";
+const dbUrl ="/db";
 
 
 let InputLine = ({status, addTodo}) => {

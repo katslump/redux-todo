@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {addTodo} from '../actions/index';
 import {setTodos} from '../actions/index';
 
-const dbUrl = "http://localhost:3000/db";
+const dbUrl = "/db";
 
 // have to change to let from const because overwriting below
 // with connected TodoApp

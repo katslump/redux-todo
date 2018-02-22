@@ -22,6 +22,11 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    proxy: {
+      "/db": "http://localhost:3000"
+    }
+  },
   stats: {
     colors: true
   },

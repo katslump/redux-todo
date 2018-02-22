@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import {getStatus} from '../actions/index';
-const dbUrl = "http://localhost:3000/db";
+const dbUrl = "/db";
 
 const Todo = ({task, id, completed, handleOnClick, handleRemoveClick}) => {
       let handleDeleteClick = (e) => {
