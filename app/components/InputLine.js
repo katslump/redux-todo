@@ -16,13 +16,14 @@ let input;
         status: status
       }).then(function(response) {
         addTodo({
-          task: input.value,
-          id: response.data["_id"],
-          status: status
+          task: response.data.task,
+          id: response.data._id,
+          status: response.data.status
         });
       }).catch(function(error) {
         console.log(error);
       });
+
       input.value = '';
     }
   }

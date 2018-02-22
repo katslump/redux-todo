@@ -30,14 +30,13 @@ componentWillMount() {
 
 render(){
   return (<div>
-    <InputLine status={this.props.status} addTodo={() => this.props.addTodoClick()}/>
+    <InputLine status={this.props.status} addTodo={(obj) => this.props.addTodoClick(obj)}/>
     <TodoList setTodos={() => this.props.fetchTodos()} todos={this.props.todos.filter(todo => todo.status === this.props.status)} handleToggleTodo={(id) => this.props.toggleTodoClick(id)}/>
   </div>);
 }
 
 }
 
-// When state changes, container will re-render
 const mapStateToProps = (state) => {
   // Whatever is returned will show up as props inside TodoList
   return {todos: state};
@@ -45,14 +44,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodoClick: (task, id, status) => {
+    addTodoClick: ({task, id, status}) => {
       dispatch(addTodo(task, id, status))
     },
     fetchTodos: (todos) => {
       dispatch(setTodos(todos))
     }
   }
-
 }
 
 // Promote TodoApp from a component to a container- it needs to know
