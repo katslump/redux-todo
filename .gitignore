@@ -8,3 +8,5 @@ build/app.bundle.js.map
 
 # Ignore log files (like npm-debug.log)
 *.log
+
+env.sh
