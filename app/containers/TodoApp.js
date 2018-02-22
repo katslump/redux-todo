@@ -15,10 +15,10 @@ let id = 0;
 
 // have to change to let from const because overwriting below
 // with connected TodoApp
-let TodoApp = ({todos, addTodoClick, toggleTodoClick}) => {
+let TodoApp = ({todos, addTodoClick, toggleTodoClick, status}) => {
   return (<div>
-    <InputLine addTodo={(task) => addTodoClick(task, id++)}/>
-    <TodoList todos={todos} handleToggleTodo={(id) => toggleTodoClick(id)}/>
+    <InputLine addTodo={(task) => addTodoClick(task, id++, status)}/>
+    <TodoList todos={todos.filter(todo => todo.status === status)} handleToggleTodo={(id) => toggleTodoClick(id)}/>
   </div>);
 }
 
@@ -30,8 +30,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodoClick: (id, task) => {
-      dispatch(addTodo(id, task))
+    addTodoClick: (id, task, status) => {
+      dispatch(addTodo(id, task, status))
     }
   }
 }

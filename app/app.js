@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoApp from './containers/TodoApp';
+import App from './components/App';
 import reducer from './reducers/index'
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 let store = createStore(reducer);
+window.store = store;
 
 ReactDOM.render(<Provider store={store}>
-  <TodoApp/>
+  <App/>
 </Provider>, document.getElementById('root'));

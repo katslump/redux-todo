@@ -4,8 +4,6 @@ const reducer = (state = [], action) => {
   switch (action.type) {
 
     case 'ADD_TODO':
-    console.log("here to add todo!");
-    console.log("id: " + action.id);
       // copy new state so no mutations to old state
       const addTodoNewState = [...state];
       // create the todo from the action object
@@ -31,14 +29,14 @@ const reducer = (state = [], action) => {
     case 'TOGGLE_TODO':
       // copy new state so no mutations to old state
       const toggleTodoNewState = [...state];
-
       // go through array and update given task
       let newToggleState = toggleTodoNewState.map((item, index) => {
         if (item.id === action.id) {
           return {
             id: item.id,
             task: item.task,
-            completed: !(item.completed)
+            completed: !(item.completed),
+            status: item.status
           }
         }
         return item;
@@ -46,8 +44,11 @@ const reducer = (state = [], action) => {
       return newToggleState;
 
       case 'CHANGE_STATUS':
-      return;
+      return state;
 
+      case 'GET_STATUS':
+        // if(action.status
+      return state;
     default:
       return state;
   }
