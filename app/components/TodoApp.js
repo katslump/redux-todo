@@ -30,7 +30,7 @@ componentWillMount() {
 
 render(){
   return (<div>
-    <InputLine status={this.props.status} addTodo={(task) => this.props.addTodoClick(id, task, status)}/>
+    <InputLine status={this.props.status} addTodo={() => this.props.addTodoClick()}/>
     <TodoList setTodos={() => this.props.fetchTodos()} todos={this.props.todos.filter(todo => todo.status === this.props.status)} handleToggleTodo={(id) => this.props.toggleTodoClick(id)}/>
   </div>);
 }
@@ -45,8 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodoClick: (id, task, status) => {
-      dispatch(addTodo(id, task, status))
+    addTodoClick: (task, id, status) => {
+      dispatch(addTodo(task, id, status))
     },
     fetchTodos: (todos) => {
       dispatch(setTodos(todos))

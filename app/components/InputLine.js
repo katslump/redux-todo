@@ -17,7 +17,7 @@ let input;
       }).then(function(response) {
         addTodo({
           task: input.value,
-          id: response.data._id,
+          id: response.data["_id"],
           status: status
         });
       }).catch(function(error) {

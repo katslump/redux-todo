@@ -2,7 +2,7 @@
 // Should return a type and other properties (payload)
 
 export function addTodo(task, id, status) {
-  return {type: 'ADD_TODO', id, task, completed: false, status};
+  return {type: 'ADD_TODO', task, id, status, completed: false};
 }
 
 export function removeTodo(id, task) {
