@@ -3,7 +3,7 @@ import {getStatus} from '../actions/index';
 
 
 const Todo = ({task, id, completed, handleOnClick, handleRemoveClick}) => {
-  return (<li className="list-group-item" style={completed
+  return (<li className="list-group-item" key={id} style={completed
       ? {
         'textDecoration': 'line-through'
       }

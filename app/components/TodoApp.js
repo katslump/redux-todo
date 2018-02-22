@@ -11,33 +11,29 @@ import TodoList from '../components/TodoList';
 import {connect} from 'react-redux';
 // import the action creator for dispatch usage
 import {addTodo} from '../actions/index';
+import {setTodos} from '../actions/index';
 
 const dbUrl = "http://localhost:3000/db";
-let id = 0;
 
 // have to change to let from const because overwriting below
 // with connected TodoApp
-let TodoApp = ({todos, addTodoClick, toggleTodoClick, status}) => {
+class TodoApp extends React.Component{
 
-
-    let self = this;
+componentWillMount() {
+  let self = this;
     axios.get(dbUrl + '/all').then(function(response) {
-      console.log("getting all todos from db:");
-      console.log(response);
+      self.props.fetchTodos(response.data);
     }).catch(function(error) {
       console.log(error);
     });
+}
 
-
+render(){
   return (<div>
-    <InputLine addTodo={(task) => addTodoClick(task, id++, status)}/>
-    <TodoList todos={todos.filter(todo => todo.status === status)} handleToggleTodo={(id) => toggleTodoClick(id)}/>
+    <InputLine status={this.props.status} addTodo={(task) => this.props.addTodoClick(id, task, status)}/>
+    <TodoList setTodos={() => this.props.fetchTodos()} todos={this.props.todos.filter(todo => todo.status === this.props.status)} handleToggleTodo={(id) => this.props.toggleTodoClick(id)}/>
   </div>);
-
-  // Performs AJAX request that gets all todos in the DB
-// before component loads on the page.
-// Sets todos state on success, errors otherwise
-
+}
 
 }
 
@@ -51,8 +47,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTodoClick: (id, task, status) => {
       dispatch(addTodo(id, task, status))
+    },
+    fetchTodos: (todos) => {
+      dispatch(setTodos(todos))
     }
   }
+
 }
 
 // Promote TodoApp from a component to a container- it needs to know

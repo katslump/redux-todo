@@ -6,6 +6,7 @@ const reducer = (state = [], action) => {
     case 'ADD_TODO':
       // copy new state so no mutations to old state
       const addTodoNewState = [...state];
+
       // create the todo from the action object
       const newTodo = {
         id: action.id,
@@ -43,12 +44,22 @@ const reducer = (state = [], action) => {
       });
       return newToggleState;
 
-      case 'CHANGE_STATUS':
+    case 'CHANGE_STATUS':
       return state;
 
-      case 'GET_STATUS':
-        // if(action.status
-      return state;
+    case 'SET_TODOS':
+      const setTodoNewState = [];
+
+      action.todos.todos.forEach(function(value, key) {
+        const newTodo = {
+          id: value._id,
+          task: value.task,
+          completed: value.completed,
+          status: value.status
+        };
+        setTodoNewState.push(newTodo);
+      });
+      return setTodoNewState;
     default:
       return state;
   }

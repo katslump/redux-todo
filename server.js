@@ -6,7 +6,6 @@ const axios = require('axios');
 const compress = require('compression');
 const bodyParser = require('body-parser');
 const dbRoutes = require('./app/routes/databaseAccess.js');
-const dbUrl = "http://localhost:3000/db";
 
 // Create instances
 var app = express();

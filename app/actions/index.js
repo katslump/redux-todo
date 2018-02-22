@@ -20,3 +20,7 @@ export function changeStatus(id, task, status) {
 export function getStatus(status) {
   return {type: 'GET_STATUS', status};
 }
+
+export function setTodos(todos) {
+  return {type: 'SET_TODOS', todos};
+}
