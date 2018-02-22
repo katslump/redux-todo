@@ -17,7 +17,7 @@ let id = 0;
 // with connected TodoApp
 let TodoApp = ({todos, addTodoClick, toggleTodoClick}) => {
   return (<div>
-    <InputLine addTodo={(task) => addTodoClick(id++, task)}/>
+    <InputLine addTodo={(task) => addTodoClick(task, id++)}/>
     <TodoList todos={todos} handleToggleTodo={(id) => toggleTodoClick(id)}/>
   </div>);
 }

@@ -1,29 +1,23 @@
 import React from 'react';
 
-class InputLine extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      task: ''
-    };
+let InputLine = ({addTodo}) => {
+let input;
+
+  let handleSubmit = (e) => {
+    e.preventDefault();
+    addTodo(input.value);
+    input.value = '';
   }
 
-  handleChange(event) {
-    this.setState({task: event.target.value});
-  }
+    return (
+    <form onSubmit={handleSubmit}>
+      <div className="input-container form-group">
+        <input type="text" id="input-username" className="login-input" placeholder="What needs to be done?" ref={ text => input = text}/>
+      </div>
+    </form>
+  )
 
-  handleSubmit() {
-    this.props.addTodo(this.state.task);
-    this.setState({task: ''});
-  }
-
-  render() {
-    return (<div>
-      <input type="text" placeholder="task" onChange={(event) => this.handleChange(event)} value={this.state.task}/>
-      <button onClick={() => this.handleSubmit()}>Add Todo</button>
-    </div>)
-  }
 }
 
 export default InputLine;

@@ -13,14 +13,17 @@ import Todo from '../components/Todo';
 
 let TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
   function renderList() {
-    return todos.map((todo) => (<Todo key={todo.id} task={todo.task} completed={todo.completed}
+    return todos.map((todo) => (
+      <Todo task={todo.task} completed={todo.completed} key={todo.id}
       // Now we will use matching by id's instead of index
       handleOnClick={() => handleToggleTodo(todo.id)} handleRemoveClick={() => handleRemoveTodo(todo.id)}/>));
   };
 
-  return (<ul className="list-group col-sm-4">
+  return (
+    <ul className="list-group center">
     {renderList()}
-  </ul>)
+  </ul>
+)
 }
 
 const mapDispatchToProps = (dispatch) => {
