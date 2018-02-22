@@ -9,9 +9,9 @@ const Todo = ({task, completed, handleOnClick, handleRemoveClick}) => {
           : {
             color: 'black'
           }}>
-        <span className="col-xs-9 col-md-9" onClick={handleOnClick}>
+        <div className="col-xs-9 col-md-9" onClick={handleOnClick}>
           {task}
-        </span>
+      </div>
         <div className="col-xs-3 col-md-3"><button type="button" className="close" onClick={handleRemoveClick}><span aria-hidden="true">&times;</span></button></div>
       </li>
     );

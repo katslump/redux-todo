@@ -15,24 +15,29 @@ const reducer = (state = [], action) => {
       addTodoNewState.push(newTodo);
       return addTodoNewState;
     case 'REMOVE_TODO':
-    console.log("REMOVE_TODO");
-
-        // copy new state so no mutations to old state
-        const removeTodoNewState = [...state];
-        // get index of task
-        var indexOfTodo = removeTodoNewState.indexOf(action);
-        // remove task and return
-        removeTodoNewState.splice(indexOfTodo, 1);
-      return removeTodoNewState;
+      // copy new state so no mutations to old state
+      const removeTodoNewState = [...state];
+      // go through array and remove given task
+      let newState = removeTodoNewState.filter(function(todo) {
+        return todo.id != action.id
+      });
+      return newState;
     case 'TOGGLE_TODO':
-        console.log("TOGGLE_TODO");
-        // copy new state so no mutations to old state
-        const toggleTodoNewState = [...state];
-        // get index of task
-        var indexOfTodo = toggleTodoNewState.indexOf(action);
-        action.completed = !(action.completed)
-        toggleTodoNewState.splice(indexOfTodo, 1, action);
-      return toggleTodoNewState;
+      // copy new state so no mutations to old state
+      const toggleTodoNewState = [...state];
+
+      // go through array and update given task
+      let newToggleState = toggleTodoNewState.map((item, index) => {
+        if (item.id === action.id) {
+          return {
+            id: item.id,
+            task: item.task,
+            completed: !(item.completed)
+          }
+        }
+        return item;
+      });
+      return newToggleState;
     default:
       return state;
   }
