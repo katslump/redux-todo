@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import InputLine from '../components/InputLine';
 import TodoList from '../components/TodoList';
@@ -11,15 +12,33 @@ import {connect} from 'react-redux';
 // import the action creator for dispatch usage
 import {addTodo} from '../actions/index';
 
+const dbUrl = "http://localhost:3000/db";
 let id = 0;
 
 // have to change to let from const because overwriting below
 // with connected TodoApp
 let TodoApp = ({todos, addTodoClick, toggleTodoClick, status}) => {
+
+
+    let self = this;
+    axios.get(dbUrl + '/all').then(function(response) {
+      console.log("getting all todos from db:");
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
+
+
   return (<div>
     <InputLine addTodo={(task) => addTodoClick(task, id++, status)}/>
     <TodoList todos={todos.filter(todo => todo.status === status)} handleToggleTodo={(id) => toggleTodoClick(id)}/>
   </div>);
+
+  // Performs AJAX request that gets all todos in the DB
+// before component loads on the page.
+// Sets todos state on success, errors otherwise
+
+
 }
 
 // When state changes, container will re-render

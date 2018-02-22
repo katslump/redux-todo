@@ -5,10 +5,15 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const compress = require('compression');
 const bodyParser = require('body-parser');
+const dbRoutes = require('./app/routes/databaseAccess.js');
+const dbUrl = "http://localhost:3000/db";
 
 // Create instances
 var app = express();
 var router = express.Router();
+
+// Import TodoItem model
+var TodoItem = require('./app/models/TodoItem.js').Todo;
 
 // Set port
 var port = parseInt(process.env.PORT) || 3000;
@@ -17,6 +22,9 @@ var port = parseInt(process.env.PORT) || 3000;
 // JSON data in the request body
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+// Configure database endpoint pathes
+app.use('/db', dbRoutes);
 
 // Set /build as our static content directory
 const publicPath = path.join(__dirname, 'build');

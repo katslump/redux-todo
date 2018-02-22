@@ -1,10 +1,7 @@
 import React from 'react';
-
-import TodoApp from '../containers/TodoApp';
+import TodoApp from './TodoApp';
 import {connect} from 'react-redux';
-
 import {getStatus} from '../actions/index';
-
 
 let App = ({status, determineStatus}) => {
   determineStatus('today')
@@ -25,9 +22,8 @@ let App = ({status, determineStatus}) => {
 
   }
 
-  // When state changes, container will re-render
   const mapStateToProps = (state) => {
-    // Whatever is returned will show up as props inside TodoList
+    // Whatever is returned will show up as props inside App
     return {status: state.status};
   }
 
@@ -39,9 +35,7 @@ let App = ({status, determineStatus}) => {
     }
   }
 
-  // Promote TodoApp from a component to a container- it needs to know
-  // about this new dispatch methods, addTodo, removeTodo, and toggleTodo
-  // Make them available as props
+  // Promote App from a component to a container
   App = connect(mapStateToProps, mapDispatchToProps)(App);
 
   export default App;
