@@ -16,7 +16,6 @@ const reducer = (state = [], action) => {
       };
       // okay to mutate our own copy
       addTodoNewState.push(newTodo);
-      console.log(newTodo);
       return addTodoNewState;
 
     case 'REMOVE_TODO':

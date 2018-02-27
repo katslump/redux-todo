@@ -3,6 +3,7 @@ import TodoApp from './TodoApp';
 import {connect} from 'react-redux';
 import {getStatus} from '../actions/index';
 
+
 let App = ({status, determineStatus}) => {
   determineStatus('today')
   return (<div className="row">
