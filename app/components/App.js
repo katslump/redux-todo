@@ -1,7 +1,8 @@
 import React from 'react';
-import TodoApp from './TodoApp';
+import SortableComponent from './SortableComponent';
 import {connect} from 'react-redux';
 import {getStatus} from '../actions/index';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 
 let App = ({status, determineStatus}) => {
@@ -9,15 +10,15 @@ let App = ({status, determineStatus}) => {
   return (<div className="row">
     <div className="col-xs-12 col-md-4">
       <h4>Today</h4>
-      <TodoApp status="today"/>
+      <SortableComponent status="today"/>
     </div>
     <div className="col-xs-12 col-md-4">
       <h4>Tomorrow</h4>
-      <TodoApp status="tomorrow"/>
+      <SortableComponent status="tomorrow"/>
     </div>
     <div className="col-xs-12 col-md-4">
       <h4>Done</h4>
-      <TodoApp status="done"/>
+      <SortableComponent status="done"/>
     </div>
   </div>);
 

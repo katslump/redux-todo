@@ -49,8 +49,7 @@ const reducer = (state = [], action) => {
 
     case 'SET_TODOS':
       const setTodoNewState = [];
-
-      action.todos.todos.forEach(function(value, key) {
+      action.todos.forEach(function(value, key) {
         const newTodo = {
           id: value._id,
           task: value.task,

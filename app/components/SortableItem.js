@@ -3,8 +3,9 @@ import axios from 'axios';
 
 import {getStatus} from '../actions/index';
 const dbUrl = "/db";
+import {SortableElement} from 'react-sortable-hoc';
 
-const Todo = ({task, id, completed, handleOnClick, handleRemoveClick}) => {
+const SortableItem = SortableElement(({task, id, completed, handleOnClick, handleRemoveClick}) => {
       let handleDeleteClick = (e) => {
         axios.post(dbUrl + '/remove', {
           id: id
@@ -33,6 +34,6 @@ const Todo = ({task, id, completed, handleOnClick, handleRemoveClick}) => {
           </div>
         </div>
       </li>);
-  }
+  });
 
-    export default Todo;
+    export default SortableItem;

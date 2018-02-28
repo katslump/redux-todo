@@ -9,19 +9,19 @@ import {connect} from 'react-redux';
 import {toggleTodo} from '../actions/index';
 import {removeTodo} from '../actions/index';
 
-import Todo from '../components/Todo';
+import SortableItem from '../components/SortableItem';
+import {SortableContainer} from 'react-sortable-hoc';
 
-let TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
+let SortableList = SortableContainer(({todos, handleToggleTodo, handleRemoveTodo}) => {
   function renderList() {
-    return todos.map((todo) => (<Todo task={todo.task} completed={todo.completed} id={todo.id}
-      // Now we will use matching by id's instead of index
+    return todos.map((todo, index) => (<SortableItem key={`item-${index}`} value={todo} index={index} task={todo.task} completed={todo.completed} id={todo.id}
       handleOnClick={() => handleToggleTodo(todo.id)} handleRemoveClick={() => handleRemoveTodo(todo.id, todo.task)}/>));
-  };
+  }
 
   return (<ul className="list-group center">
     {renderList()}
-  </ul>)
-}
+    </ul>);
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -34,9 +34,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-// Promote TodoList from a component to a container- it needs to know
+// Promote SortableList from a component to a container- it needs to know
 // about this new dispatch methods, addTodo, removeTodo, and toggleTodo
 // Make them available as props
-TodoList = connect(null, mapDispatchToProps)(TodoList);
+SortableList = connect(null, mapDispatchToProps)(SortableList);
 
-export default TodoList;
+export default SortableList;
